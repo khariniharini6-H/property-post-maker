@@ -1,0 +1,536 @@
+/* ===================================================================
+   Property Post Maker — design tokens
+   Palette: ink navy card + brass gold accent on a warm drafting-paper page
+   Type: Fraunces (display) + Manrope (UI / data)
+   Signature: blueprint-grid backdrop + gold corner "featured" ribbon
+=================================================================== */
+
+:root {
+  --ink: #12161d;
+  --navy: #1b2433;
+  --navy-2: #222e42;
+  --ivory: #f6f2e9;
+  --paper: #ffffff;
+  --gold: #c6a15b;
+  --gold-light: #e9d9ac;
+  --gold-deep: #a9813c;
+  --slate: #4b5262;
+  --slate-light: #838b99;
+  --line: #e3ddcd;
+  --error: #b3432f;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --radius-lg: 22px;
+  --radius-md: 14px;
+  --radius-sm: 8px;
+
+  --shadow-soft: 0 20px 45px -20px rgba(18, 22, 29, 0.35);
+  --shadow-card: 0 30px 60px -25px rgba(18, 22, 29, 0.55);
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--ivory);
+  color: var(--ink);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* -------------------------------------------------------------
+   Signature backdrop — faint architectural drafting grid
+--------------------------------------------------------------*/
+.grid-backdrop {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  min-height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 42px 42px;
+  opacity: 0.35;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 85%);
+}
+
+/* -------------------------------------------------------------
+   Header
+--------------------------------------------------------------*/
+.site-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 28px clamp(20px, 5vw, 56px) 10px;
+}
+
+.brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-mark__glyph {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: var(--ink);
+  color: var(--gold-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.brand-mark__text { display: flex; flex-direction: column; line-height: 1.2; }
+
+.brand-mark__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+.brand-mark__sub {
+  font-size: 0.72rem;
+  color: var(--slate-light);
+  letter-spacing: 0.03em;
+}
+
+.site-header__credit {
+  font-size: 0.8rem;
+  color: var(--slate);
+  white-space: nowrap;
+}
+.site-header__credit strong { color: var(--ink); }
+
+/* -------------------------------------------------------------
+   Layout
+--------------------------------------------------------------*/
+.workspace {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(320px, 420px) 1fr;
+  gap: 28px;
+  align-items: start;
+  padding: 18px clamp(20px, 5vw, 56px) 40px;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+@media (max-width: 920px) {
+  .workspace { grid-template-columns: 1fr; }
+}
+
+.panel {
+  border-radius: var(--radius-lg);
+  padding: clamp(22px, 3vw, 34px);
+}
+
+.panel--form {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-soft);
+}
+
+.panel--preview {
+  background: linear-gradient(165deg, var(--navy) 0%, var(--ink) 100%);
+  color: var(--ivory);
+  min-height: 640px;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel__eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--gold-deep);
+  margin-bottom: 8px;
+}
+.panel__eyebrow--light { color: var(--gold-light); }
+
+.panel__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2vw, 1.85rem);
+  font-weight: 600;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+.panel__title--light { color: var(--ivory); }
+
+.panel__hint {
+  font-size: 0.9rem;
+  color: var(--slate);
+  margin: 0 0 26px;
+  line-height: 1.5;
+}
+
+/* -------------------------------------------------------------
+   Form
+--------------------------------------------------------------*/
+.field { margin-bottom: 20px; display: flex; flex-direction: column; }
+
+.field label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 7px;
+  letter-spacing: 0.01em;
+}
+
+.field input {
+  font-family: var(--font-body);
+  font-size: 0.96rem;
+  padding: 13px 15px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--line);
+  background: #fdfcf9;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.field input::placeholder { color: #b7b0a0; }
+
+.field input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(198, 161, 91, 0.18);
+}
+
+.field input.field--invalid {
+  border-color: var(--error);
+}
+.field input.field--invalid:focus {
+  box-shadow: 0 0 0 4px rgba(179, 67, 47, 0.15);
+}
+
+.field__hint {
+  font-size: 0.74rem;
+  color: var(--slate-light);
+  margin-top: 6px;
+}
+
+.field__error {
+  font-size: 0.78rem;
+  color: var(--error);
+  margin-top: 6px;
+  min-height: 1em;
+  display: block;
+}
+
+/* -------------------------------------------------------------
+   Buttons
+--------------------------------------------------------------*/
+.btn {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.92rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 14px 24px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+  letter-spacing: 0.01em;
+}
+.btn:active { transform: translateY(1px); }
+
+.btn--primary {
+  background: var(--ink);
+  color: var(--gold-light);
+  box-shadow: 0 14px 28px -12px rgba(18, 22, 29, 0.55);
+}
+.btn--primary:hover { box-shadow: 0 18px 32px -12px rgba(18, 22, 29, 0.6); }
+
+.btn--full { width: 100%; margin-top: 6px; }
+
+.btn--gold {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  color: var(--ink);
+  box-shadow: 0 14px 24px -12px rgba(198, 161, 91, 0.55);
+}
+.btn--gold:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn__icon { font-size: 0.95em; }
+
+.form-status {
+  min-height: 1.2em;
+  font-size: 0.84rem;
+  margin: 12px 2px 0;
+  color: var(--slate);
+}
+.form-status.is-success { color: #3f7a4d; font-weight: 600; }
+
+/* -------------------------------------------------------------
+   Preview stage
+--------------------------------------------------------------*/
+.preview-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 6px 22px;
+  position: relative;
+}
+
+.preview-hint {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--slate-light);
+  margin: 0;
+}
+
+/* -------------------------------------------------------------
+   The generated post card (this is what gets exported to PNG)
+--------------------------------------------------------------*/
+.post-card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 4 / 5;
+  border-radius: 20px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 85% 8%, rgba(198, 161, 91, 0.28), transparent 42%),
+    linear-gradient(160deg, #202b3d 0%, #12161d 78%);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body);
+  color: var(--ivory);
+}
+
+.post-card__texture {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(233, 217, 172, 0.05) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(90deg, rgba(233, 217, 172, 0.05) 0 1px, transparent 1px 34px);
+  pointer-events: none;
+}
+
+.post-card__badge {
+  position: absolute;
+  top: 22px;
+  right: -54px;
+  width: 200px;
+  transform: rotate(40deg);
+  background: linear-gradient(135deg, var(--gold-light), var(--gold-deep));
+  color: var(--ink);
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 0;
+  z-index: 2;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
+
+.post-card__body {
+  position: relative;
+  z-index: 1;
+  padding: clamp(26px, 6%, 38px) clamp(24px, 6%, 34px) 8px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.post-card__eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--gold-light);
+  margin-bottom: 14px;
+}
+
+.post-card__type {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.55rem, 6vw, 2.1rem);
+  line-height: 1.12;
+  margin: 0 0 14px;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+  word-break: break-word;
+}
+
+.post-card__location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.92rem;
+  color: #d9dee6;
+  margin-bottom: 22px;
+}
+.post-card__location .pin { color: var(--gold-light); }
+
+.post-card__price-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 20px;
+}
+
+.post-card__price-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--slate-light);
+  font-weight: 700;
+}
+
+.post-card__price {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 6.5vw, 2.15rem);
+  font-weight: 700;
+  color: var(--gold-light);
+  letter-spacing: -0.01em;
+  word-break: break-word;
+}
+
+.post-card__divider {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(233,217,172,0.5), rgba(233,217,172,0));
+  margin-bottom: 18px;
+}
+
+.post-card__highlights {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+}
+
+.post-card__highlights li {
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(233, 217, 172, 0.28);
+  color: #f1efe9;
+  padding: 6px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.post-card__strip {
+  position: relative;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.28);
+  border-top: 1px solid rgba(233, 217, 172, 0.25);
+  padding: 16px clamp(24px, 6%, 34px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  backdrop-filter: blur(2px);
+}
+
+.post-card__strip-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.post-card__strip-glyph {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--gold-light);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.post-card__strip-name {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.post-card__strip-role {
+  font-size: 0.66rem;
+  color: var(--slate-light);
+  letter-spacing: 0.03em;
+}
+
+.post-card__strip-cta {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  white-space: nowrap;
+}
+
+/* subtle pulse when a fresh post is generated */
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(10px) scale(0.985); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.post-card.is-fresh { animation: cardReveal 0.5s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  .post-card.is-fresh { animation: none; }
+}
+
+/* -------------------------------------------------------------
+   Footer
+--------------------------------------------------------------*/
+.site-footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--slate-light);
+  padding: 8px 20px 34px;
+}
+.site-footer strong { color: var(--slate); }
+
+/* -------------------------------------------------------------
+   Small screens
+--------------------------------------------------------------*/
+@media (max-width: 520px) {
+  .site-header { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .panel--preview { min-height: auto; }
+  .post-card { max-width: 100%; }
+  .preview-top { align-items: center; }
+}
