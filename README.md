@@ -1,16 +1,5 @@
 # Property Post Maker
 
-A tiny, focused web tool for **Kavva Harini**: type in four details about a
-property and get back a polished, ready-to-share real-estate social media
-post — no design skills required.
-
-Enter the property type, location, price and highlights, hit **Generate
-Property Post**, and a premium listing card appears instantly, branded
-automatically, ready to download as a PNG and post to WhatsApp, Instagram or
-LinkedIn.
-
----
-
 ## Features
 
 - **Just 4 inputs** — Property & Type, Location, Price, Highlights. Nothing
